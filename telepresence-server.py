@@ -34,22 +34,22 @@ flag_wings = True
 
 while(1):
 
-    # Switch wing direction every 3s
-    time_new = time()
-    if time_new-time_old >= 3:
-        flag_wings = not flag_wings
-        time_old = time_new
-        print('switched wing direction')
+    # # Switch wing direction every 3s
+    # time_new = time()
+    # if time_new-time_old >= 3:
+    #     flag_wings = not flag_wings
+    #     time_old = time_new
+    #     print('switched wing direction')
 
-    # Switch wings on/off
-    if flag_wings:
-        print('wings up')
-        motor3.forward()
-        motor4.forward()
-    else:
-        print('wings down')
-        motor3.stop()
-        motor4.stop()
+    # # Switch wings on/off
+    # if flag_wings:
+    #     print('wings up')
+    #     motor3.forward()
+    #     motor4.forward()
+    # else:
+    #     print('wings down')
+    #     motor3.stop()
+    #     motor4.stop()
 
     # print('looper')
 

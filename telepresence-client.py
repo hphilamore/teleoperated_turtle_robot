@@ -24,8 +24,8 @@ from screeninfo import get_monitors # windows only
 drawingModule = mediapipe.solutions.drawing_utils
 handsModule = mediapipe.solutions.hands
 
-HOST = "192.168.89.194"  # The raspberry pi's hostname or IP address
-PORT = 65442            # The port used by the server
+HOST = "192.168.0.102"  # The raspberry pi's hostname or IP address
+PORT = 65443            # The port used by the server
 
 flag_no_hand = False 
 
