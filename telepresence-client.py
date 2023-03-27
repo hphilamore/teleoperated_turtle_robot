@@ -24,7 +24,7 @@ from screeninfo import get_monitors # windows only
 drawingModule = mediapipe.solutions.drawing_utils
 handsModule = mediapipe.solutions.hands
 
-HOST = "192.168.89.182"  # The raspberry pi's hostname or IP address
+HOST = "192.168.89.194"  # The raspberry pi's hostname or IP address
 PORT = 65442            # The port used by the server
 
 flag_no_hand = False 
@@ -149,7 +149,7 @@ while(True):
 
 	        cv2.namedWindow('image',cv2.WINDOW_NORMAL) # Implicitly create the window
 	        cv2.resizeWindow('image', int(newX),int(newY))         # Resize the window
-	        
+
 	        #------------------------------------------------------------------------------
 
 
