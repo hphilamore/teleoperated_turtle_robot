@@ -2,9 +2,9 @@
 # Programs to run on computer *(Motion tracking of hands in a video feed)*
 ## Computer set up and installation:
 - Clone git repository: https://github.com/hphilamore/mediapipe_hands_vid_send
-- Create virtual environment inside cloned repository: Run:[`python3 venv env`]
+- Create virtual environment (https://packaging.python.org/en/latest/guides/installing-using-pip-and-virtual-environments/) inside cloned repository: Run:[`python3 -m venv env`] (Mac/Linux), [`py -m venv env`] (Windows) 
 - Add virtual environment to .gitignore file. Run:[`nano .gitignore`] and add line [`/env`]
-- Activate virtual environment: Run:[`source env/bin/activate`]
+- Activate virtual environment: Run:[`source env/bin/activate`] (Mac/Linux) [`.\env\Scripts\activate`] (Windows) 
 - Run:[`pip3 install -r requirements.txt`]
 
 ## Hand tracking test programs
