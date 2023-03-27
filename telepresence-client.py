@@ -19,11 +19,12 @@ import cv2
 import mediapipe
 import socket
 import time
+from screeninfo import get_monitors # windows only
  
 drawingModule = mediapipe.solutions.drawing_utils
 handsModule = mediapipe.solutions.hands
 
-HOST = "192.168.115.193"  # The raspberry pi's hostname or IP address
+HOST = "192.168.89.182"  # The raspberry pi's hostname or IP address
 PORT = 65442            # The port used by the server
 
 flag_no_hand = False 
@@ -37,10 +38,10 @@ def pos_to_command(x, z):
             out = 'stop'          
 
         elif x < 0.4:        # Turn left
-            out = 'left'
+            out = 'right'
              
         elif x > 0.6:        # Turn right 
-            out = 'right'
+            out = 'left'
             
         else:                # Go forwards
             out = 'forward'
@@ -56,10 +57,15 @@ while(True):
     with handsModule.Hands(static_image_mode=False, 
                        min_detection_confidence=0.7, 
                        min_tracking_confidence=0.7, 
-                       max_num_hands=2) as hands:
+                       max_num_hands=1) as hands:
 
         # Capture image from video
         ret, frame = capture.read()
+
+        # Flip the image horizontally
+        frame = cv2.flip(frame, 1)
+
+        # Identify hands
         results = hands.process(cv2.cvtColor(frame, cv2.COLOR_BGR2RGB))
 
         # Check for hands
@@ -117,7 +123,38 @@ while(True):
 
 
         try:
-            cv2.imshow('Test hand', frame)
+            
+            #------------------------------------------------------------------------------
+            # To make output window full screen:
+	        for monitor in get_monitors():
+	         	screen_h = monitor.height
+	         	screen_w = monitor.width
+	        
+	        frame_h, frame_w, _ = frame.shape
+
+	        scaleWidth = float(screen_w)/float(frame_w)
+	        scaleHeight = float(screen_h)/float(frame_h)
+
+	        if scaleHeight>scaleWidth:
+	        	imgScale = scaleWidth
+	        else:
+	        	imgScale = scaleHeight
+
+	        newX,newY = frame_w*imgScale, frame_h*imgScale
+
+	        # cv2.namedWindow('image', cv2.WND_PROP_FULLSCREEN)
+	        # cv2.setWindowProperty('image', cv2.WND_PROP_FULLSCREEN, cv2.WINDOW_FULLSCREEN)
+	        # frame = cv2.resize(frame,(int(newX),int(newY)))
+	        # cv2.imshow('image', frame)
+
+	        cv2.namedWindow('image',cv2.WINDOW_NORMAL) # Implicitly create the window
+	        cv2.resizeWindow('image', int(newX),int(newY))         # Resize the window
+	        
+	        #------------------------------------------------------------------------------
+
+
+	        cv2.imshow('image', frame)                 # Show the window 
+        	
         except:
             pass
  
