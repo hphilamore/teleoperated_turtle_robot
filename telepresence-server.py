@@ -63,22 +63,22 @@ while(1):
 
         while True:
 
-            time_new = time()
-            if time_new-time_old >= 2:
-                flag_wings = not flag_wings
-                time_old = time_new
-                print('switched wing direction')
-                #sleep(2)
+            # time_new = time()
+            # if time_new-time_old >= 2:
+            #     flag_wings = not flag_wings
+            #     time_old = time_new
+            #     print('switched wing direction')
+            #     #sleep(2)
 
-            # # Switch wings on/off
-                if flag_wings:
-                    print('wings up')
-                    motor3.forward()
-                    motor4.forward()
-                else:
-                    print('wings down')
-                    motor3.stop()
-                    motor4.stop()
+            # # # Switch wings on/off
+            #     if flag_wings:
+            #         print('wings up')
+            #         motor3.forward()
+            #         motor4.forward()
+            #     else:
+            #         print('wings down')
+            #         motor3.stop()
+            #         motor4.stop()
 
 
 
