@@ -32,9 +32,9 @@ flag_wings = True
 
 
 
-while(1):
+#while(1):
 
-    # # Switch wing direction every 3s
+    
     # time_new = time()
     # if time_new-time_old >= 3:
     #     flag_wings = not flag_wings
@@ -55,58 +55,58 @@ while(1):
 
 
 
-    conn, addr = server_socket.accept()
-    with conn:
-        print(f"Connected by {addr}")
+conn, addr = server_socket.accept()
+with conn:
+print(f"Connected by {addr}")
 
 
 
-        while True:
+while True:
+    # Switch wing direction every 3s
+    # time_new = time()
+    # if time_new-time_old >= 2:
+    #     flag_wings = not flag_wings
+    #     time_old = time_new
+    #     print('switched wing direction')
+    #     #sleep(2)
 
-            # time_new = time()
-            # if time_new-time_old >= 2:
-            #     flag_wings = not flag_wings
-            #     time_old = time_new
-            #     print('switched wing direction')
-            #     #sleep(2)
-
-            # # # Switch wings on/off
-            #     if flag_wings:
-            #         print('wings up')
-            #         motor3.forward()
-            #         motor4.forward()
-            #     else:
-            #         print('wings down')
-            #         motor3.stop()
-            #         motor4.stop()
-
-
+    # # # Switch wings on/off
+    #     if flag_wings:
+    #         print('wings up')
+    #         motor3.forward()
+    #         motor4.forward()
+    #     else:
+    #         print('wings down')
+    #         motor3.stop()
+    #         motor4.stop()
 
 
-            data = conn.recv(1024)
-            if not data:
-                break
-            msg = data.decode()
-            print(msg)
 
-            if msg == 'stop':
-                motor1.stop() 
-                motor2.stop()
-                motor3.stop() 
-                motor4.stop()
 
-            elif msg == 'left':
-                motor1.stop()
-                motor2.forward(0.5)
+    data = conn.recv(1024)
+    if not data:
+        break
+    msg = data.decode()
+    print(msg)
 
-            elif msg == 'right':
-                motor1.forward(0.5)
-                motor2.stop()
-                
+    if msg == 'stop':
+        motor1.stop()
+        motor2.stop()
+        motor3.stop()
+        motor4.stop()
 
-            elif msg == 'forward':
-                motor1.forward(0.5)
-                motor2.forward(0.5)
+    elif msg == 'left':
+        motor1.stop()
+        motor2.forward(0.5)
+
+    elif msg == 'right':
+        motor1.forward(0.5)
+        motor2.stop()
+        
+
+    elif msg == 'forward':
+        motor1.forward(0.5)
+        motor2.forward(0.5)
 
             #conn.sendall(data)
     
