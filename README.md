@@ -1,5 +1,6 @@
 
 # Programs to run on computer *(Motion tracking of hands in a video feed)*
+
 ## Computer set up and installation:
 - Clone git repository: https://github.com/hphilamore/mediapipe_hands_vid_send
 - Create virtual environment (https://packaging.python.org/en/latest/guides/installing-using-pip-and-virtual-environments/) inside cloned repository: Run:[`python3 -m venv env`] (Mac/Linux), [`py -m venv env`] (Windows) 
@@ -47,7 +48,7 @@
 - Run:[`sudo apt install git`]
 - Run:[`sudo apt-get install python3-pip`]
 - Run:[`sudo apt-get install python3-venv`]
-- Clone git repository: https://github.com/hphilamore/teleoperated_turtle_robot.git
+- Clone this git repository
 - Create virtual environment inside cloned repository: Run:[`python3 -m venv env`]
 - Add virtual environment to .gitignore file. Run:[`nano .gitignore`] and add line [`/env`]
 - Activate virtual environment: Run:[`source env/bin/activate`]
