@@ -123,12 +123,14 @@ while(True):
                        max_num_hands=1) as hands:
 
 
-        with mss() as sct:
+        # with mss() as sct:
             
-            """
-            Input taken from window
-            """
-            if input_mode == 'window':
+        """
+        Input taken from window
+        """
+        if input_mode == 'window':
+
+            with mss() as sct:
 
                 try:
                     # Use coordinates of window
@@ -139,29 +141,30 @@ while(True):
                           "height": coordinates[2]
                            }
 
+                    # Grab current image    
+                    frame = np.array(sct.grab(window))
+
+                    # ------------------------------------------------
+                    # Uncomment this line if full screen image required
+                    # frame = np.array(ImageGrab.grab())
+                    # ------------------------------------------------  
+
+                    frame = cv2.cvtColor(frame, cv2.COLOR_RGB2BGR)
+
                 except:
                     print("No window with specified name")
                     print("Exiting program...")
                     sys.exit(1)
-                
-                # Grab current image    
-                frame = np.array(sct.grab(window))
+            
 
-                # ------------------------------------------------
-                # Uncomment this line if full screen image required
-                # frame = np.array(ImageGrab.grab())
-                # ------------------------------------------------  
-
-                frame = cv2.cvtColor(frame, cv2.COLOR_RGB2BGR)
-
-            else:
-                """
-                Input taken from webcam
-                """
-                ret, frame = capture.read()
-                # Grab current image    
-                frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-                frame = cv2.flip(frame, 1)
+        else:
+            """
+            Input taken from webcam
+            """
+            ret, frame = capture.read()
+            # Grab current image    
+            frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+            frame = cv2.flip(frame, 1)
 
 
         # Look for hands    
