@@ -26,14 +26,16 @@ import sys
 from subprocess import Popen, PIPE
 import numpy as np
 
+import curses
+
 #-------------------------------------------------------------------------------
 """ SETUP """
 
 HOST = "192.168.0.100"  # The raspberry pi's hostname or IP address
 PORT = 65443            # The port used by the server
 
-# Take video stream from 'camera' or 'window'
-input_mode = 'window' #'camera'  
+# Take video stream from 'camera' or 'window' or 'keys'
+input_mode = 'camera'  
 
 # Window name is using window
 win_name = 'zoom.us'                      
@@ -93,7 +95,56 @@ def pos_to_command(x, y, z):
 
     return out
 
-if input_mode == 'window':
+
+if input_mode == 'keys':
+
+    screen = curses.initscr()
+    curses.noecho() 
+    curses.cbreak()
+    screen.keypad(True)
+
+    command = 'stop'
+
+    try:
+
+        while(True):
+            char = screen.getch()
+
+            # if char == curses.KEY_UP:
+            #     print("up")
+            #     command = 'forward'
+            if char == ord('q'):
+                break
+            elif char == curses.KEY_UP:
+                print("up")
+                command = 'forward'
+            elif char == curses.KEY_DOWN:
+                print("down")
+                command = 'backward'
+            elif char == curses.KEY_RIGHT:
+                print("right")
+                command = 'right'
+            elif char == curses.KEY_LEFT:
+                print("left")
+                command = 'left'
+            elif char == ord('s'): #10:
+                print("stop")
+                command = 'stop' 
+
+            # Send command to server socket on raspberry pi
+            with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+                # s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1) # Allow reuse of address
+                s.connect((HOST, PORT))
+                s.sendall(command.encode())
+                # data = s.recv(1024)
+
+    except KeyboardInterrupt:
+        #Close down curses properly, inc turn echo back on!
+        curses.nocbreak(); screen.keypad(0); curses.echo()
+        curses.endwin()
+
+
+elif input_mode == 'window':
     """ Set up window for image capture """
      
     process = Popen(['./windowlist', 'windowlist.m'], stdout=PIPE, stderr=PIPE)
@@ -110,7 +161,7 @@ if input_mode == 'window':
             coordinates = [int(float(i)) for i in coordinates]  # Convert coordinates to integer
             print(coordinates)
 
-else:
+elif input_mode == 'camera':
     """ Setup web cam ready for video capture """
     capture = cv2.VideoCapture(0)
  
@@ -157,7 +208,7 @@ while(True):
                     sys.exit(1)
             
 
-        else:
+        elif input_mode == 'camera':
             """
             Input taken from webcam
             """
