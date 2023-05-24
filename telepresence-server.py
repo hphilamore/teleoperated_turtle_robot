@@ -21,7 +21,7 @@ motor4_enable = OutputDevice(25, initial_value=1)
 
 # HOST = "127.0.0.1"  # Standard loopback interface address (localhost)
 HOST = "0.0.0.0"  # Listen on all interfaces
-PORT = 65442  # Port to listen on (non-privileged ports are > 1023)
+PORT = 65443  # Port to listen on (non-privileged ports are > 1023)
 
 server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 server_socket.bind((HOST, PORT))
