@@ -35,17 +35,17 @@ HOST = "192.168.146.182"  # The raspberry pi's hostname or IP address
 PORT = 65443            # The port used by the server
 
 # Take video stream from 'camera' or 'window' or 'keys'
-input_mode = 'camera'  
+input_mode = 'window'#'camera'#'window'# 'camera'  
 
 # Window name is using window
 win_name = 'zoom.us'                      
 #win_name = 'Microsoft Teams'
 win_name = 'zoom.us:Zoom Meeting'          # Find zoom meeting window 
-#win_name = 'zoom.us:zoom floating video'  # Find zoom meeting window during share screen 
+win_name = 'zoom.us:zoom floating video'  # Find zoom meeting window during share screen 
 #win_name = 'Vysor'                        # Find vysor window for robot POV 
 #win_name = 'Vysor:SM'                     # Find vysor window for robot POV 
 #win_name = 'Vysor:ART'                    # Find vysor window for robot POV 
-win_name = 'Photo Booth:Photo Booth'   
+# win_name = 'Photo Booth:Photo Booth'   
 
 
 # Choose OC as macOS or windowsOS 
@@ -95,10 +95,11 @@ def pos_to_command(x, y, z):
             out = 'right'
             
         else:                # Go forwards
-            if y >= 0.5:
-                out = 'backward'
-            else:
-                out = 'forward'
+            out = 'forward'
+            # if y >= 0.5:
+            #     out = 'backward'
+            # else:
+            #     out = 'forward'
 
     else:
         out = 'none'
@@ -170,6 +171,8 @@ elif input_mode == 'window':
             print(coordinates)
             coordinates = [int(float(i)) for i in coordinates]  # Convert coordinates to integer
             print(coordinates)
+        else:
+            print('window not found')
 
 elif input_mode == 'camera':
     """ Setup web cam ready for video capture """
@@ -263,6 +266,8 @@ while(True):
                 # Choose a command to send to the raspberry pi robot 
                 command = pos_to_command(x, y, z)
                 print(command)
+
+
 
         else:
                 print('No hand')
